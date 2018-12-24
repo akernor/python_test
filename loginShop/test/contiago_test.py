@@ -3,7 +3,7 @@ import unittest
 
 from selenium.webdriver.common.keys import Keys
 
-from python3.common.selenium import Selenium, true
+from common.selenium import Selenium, true
 
 USERS = {
     'successfully': {'email': os.getenv('FB_EMAIL'), 'password': os.getenv('FB_PASSWORD')},
