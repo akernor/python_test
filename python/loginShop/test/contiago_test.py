@@ -22,6 +22,11 @@ class ContiagoTest(unittest.TestCase):
 
     def loginShop(self, email, password):
         self.driver.get('http://136.243.36.97:3000')
+        versions = self.driver.find_elements_by_css_selector('button[class*="Button"]')
+        for version in versions:
+            if version.text == 'WEITER':
+                version.click()
+                break
         elements = self.driver.find_elements_by_css_selector('a[href="/Home"]')
         for element in elements:
             if element.text == 'Anmelden':
@@ -31,25 +36,22 @@ class ContiagoTest(unittest.TestCase):
         self.driver.find_element_by_name('password').send_keys(password)
         buttons = self.driver.find_elements_by_css_selector('button[type="submit"]')
         for button in buttons:
-            if button.text == 'Anmelden':
+            if button.text == 'ANMELDEN':
                 button.click()
                 break
-        errors = self.driver.find_elements_by_css_selector('p[class*="ErrorMessage"]')
-        found = False
-        for error in errors:
-            if 'Bad credentials' in error.text:
-                found = True
-                break
-        if not found:
-            raise Exception("Test failed")
 
     def test_loginShop__failed_wrong_credentials(self):
         self.loginShop(**USERS['failed'])
-        assert 'Bad credentials' in self.driver.page_source
+        self.assertTrue('Das eingegebene Kennwort ist falsch' in self.driver.page_source)
 
     def test_loginShop__failed_user_not_exist(self):
         self.loginShop(**USERS['not_exist'])
-        assert 'Bad credentials(user with this email is not registered)' in self.driver.page_source
+        self.assertTrue('Ein Benutzer mit dieser E-Mail ist nicht registriert' in self.driver.page_source)
+
+    def test_loginShop__successfully(self):
+        self.loginShop(**USERS['successfully'])
+        self.assertTrue('Anna Kernozhytskaya' in self.driver.page_source)
+
 
 if __name__ == '__main__':
-        unittest.main()
+    unittest.main()
