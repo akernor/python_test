@@ -1,4 +1,5 @@
 import os
+import time
 import unittest
 
 from python.common.selenium import Selenium, true
@@ -42,15 +43,22 @@ class ContiagoTest(unittest.TestCase):
 
     def test_loginShop__failed_wrong_credentials(self):
         self.loginShop(**USERS['failed'])
-        self.assertTrue('Das eingegebene Kennwort ist falsch' in self.driver.page_source)
+        time.sleep(5)
+        # self.assertTrue('Das eingegebene Kennwort ist falsch' in self.driver.page_source)
+        assert 'Das eingegebene Kennwort ist falsch' in self.driver.page_source
 
     def test_loginShop__failed_user_not_exist(self):
         self.loginShop(**USERS['not_exist'])
-        self.assertTrue('Ein Benutzer mit dieser E-Mail ist nicht registriert' in self.driver.page_source)
+        time.sleep(5)
+        # self.assertTrue('Ein Benutzer mit dieser E-Mail ist nicht registriert' in self.driver.page_source)
+        assert 'Ein Benutzer mit dieser E-Mail ist nicht registriert' in self.driver.page_source
 
     def test_loginShop__successfully(self):
         self.loginShop(**USERS['successfully'])
-        self.assertTrue('Anna Kernozhytskaya' in self.driver.page_source)
+        time.sleep(5)
+        # self.assertTrue('Anna Kernozhytskaya' in self.driver.page_source)
+        assert 'Anna Kernozhytskaya' in self.driver.page_source
+
 
 
 if __name__ == '__main__':
