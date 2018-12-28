@@ -50,7 +50,7 @@ class ContiagoTest(unittest.TestCase):
     def test_loginShop__failed_user_not_exist(self):
         self.loginShop(**USERS['not_exist'])
         time.sleep(5)
-        # self.assertTrue('Ein Benutzer mit dieser E-Mail ist nicht registriert' in self.driver.page_source)
+        # self.assertTrue('Ein Benutzer mit dieser E-Mail ist nicht registriert' in self.driver.page_source) check later
         assert 'Ein Benutzer mit dieser E-Mail ist nicht registriert' in self.driver.page_source
 
     def test_loginShop__successfully(self):
