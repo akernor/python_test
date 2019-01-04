@@ -1,3 +1,4 @@
+# список: создание пустого + добавление элеммента в список
 # vowels = ['a', 'e', 'i', 'o', 'u']
 # word = input("Provide a word to search for vowels: ")
 # found = []
@@ -8,7 +9,7 @@
 # for vowels in found:
 #     print(vowels)
 
-
+# работа со списком: удаление элементов а также добавление + повторение цикла
 # phrase = "Don't panic!"
 # plist = list(phrase)
 # print(phrase)
@@ -23,6 +24,7 @@
 # print(plist)
 # print(new_phrase)
 
+# список создание списка и обратная функция
 # phrase = "Don't panic!"
 # plist = list(phrase)
 # print(phrase)
@@ -33,6 +35,7 @@
 # test = list(new_phrase)
 # print(test)
 
+# список со срезами + табуляция
 paranoid_android = "Marvin, the Paranoid Android"
 letters = list(paranoid_android)
 for char in letters[:6]:

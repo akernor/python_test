@@ -1,3 +1,4 @@
+# список: рандом(случайное знач. в заданном диапазоне) + повт. цикла + получение текущего времени
 # import time
 # import random
 #
@@ -17,7 +18,7 @@
 #     wait_time = random.randint(1,60)
 #     time.sleep(wait_time)
 
-
+# время
 # today = datetime.today().day
 # if today == 'Saturday':
 #     print('Party!!')
@@ -26,7 +27,7 @@
 # else:
 #     print('Work, work, work.')
 
-
+# повторение в заданном диапазоне
 word = "bottles"
 for beer_num in range(99, 0, -1):
     print(beer_num, word, "of beer on the wall.")
