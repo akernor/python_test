@@ -32,8 +32,35 @@
 #     print(k, 'was found', v, 'time(s).')
 
 #множества: преобразование и вывод общих объектов в множествах
-vowels1 = set('aeiou')
-word = input("Provide a word to search for vowels: ")
-found = vowels1.intersection(set(word))
-for vowels in found:
-    print(vowels)
+# vowels1 = set('aeiou')
+# word = input("Provide a word to search for vowels: ")
+# found = vowels1.intersection(set(word))
+# for vowels in found:
+#     print(vowels)
+
+# кортеж
+# a = (1,)
+# b = (1, 2, 3)
+
+# комбинирование встроенных структур данных (словарь в словаре)
+import pprint
+
+
+people = {}
+people['Ford'] = {  'Name': 'Ford Prefect',
+                    'Gender': 'Male',
+                    'Occupation': 'Researcher',
+                    'Home Planet': 'Betelgeuse Seven'}
+people['Artur'] = {  'Name': 'Artur Dent',
+                    'Gender': 'Unknown',
+                    'Occupation': 'Sandwich-Maker',
+                    'Home Planet': 'Earth'}
+people['Robot'] = {  'Name': 'Marvin',
+                    'Gender': 'Unknown',
+                    'Occupation': 'Paranoid Android',
+                    'Home Planet': 'Earth'}
+people['Trillian'] = {  'Name': 'Tricia McMillan',
+                    'Gender': 'Female',
+                    'Occupation': 'Mathematician',
+                    'Home Planet': 'Unknown'}
+pprint.pprint(people)
