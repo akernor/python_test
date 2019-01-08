@@ -14,4 +14,4 @@ def search4letters(phrase: str, letters: str) -> set:
     """Возвращает множество букв из 'letters', найденныx в указанном слове."""
     return set(letters).intersection(set(phrase))
 
-# сщодание функций
+# создание функций
