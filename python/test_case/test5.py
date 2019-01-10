@@ -200,6 +200,5 @@ class Student(SchoolMember):
 t = Teacher('Ms. Petrova', 55, 3000)
 s = Student('Kolya Pertuch', 12, 85)
 print()
-members = [t, s]
-for member in members:
-    member.tell()
+t.tell()
+s.tell()
