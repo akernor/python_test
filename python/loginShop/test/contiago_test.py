@@ -41,31 +41,41 @@ class ContiagoTest(unittest.TestCase):
                 button.click()
                 break
 
-    # def test_loginShop__failed_wrong_credentials(self):
-    #     self.loginShop(**USERS['failed'])
-    #     time.sleep(5)
-    #     # self.assertTrue('Das eingegebene Kennwort ist falsch' in self.driver.page_source)
-    #     assert 'Das eingegebene Kennwort ist falsch' in self.driver.page_source
-    #
-    # def test_loginShop__failed_user_not_exist(self):
-    #     self.loginShop(**USERS['not_exist'])
-    #     time.sleep(5)
-    #     assert 'Ein Benutzer mit dieser E-Mail ist nicht registriert' in self.driver.page_source
+    def test_loginShop__failed_wrong_credentials(self):
+        self.loginShop(**USERS['failed'])
+        time.sleep(5)
+        # self.assertTrue('Das eingegebene Kennwort ist falsch' in self.driver.page_source)
+        assert 'Das eingegebene Kennwort ist falsch' in self.driver.page_source
+
+    def test_loginShop__failed_user_not_exist(self):
+        self.loginShop(**USERS['not_exist'])
+        time.sleep(5)
+        assert 'Ein Benutzer mit dieser E-Mail ist nicht registriert' in self.driver.page_source
 
     def test_loginShop__successfully(self):
+        self.suc_log()
+        time.sleep(5)
+        elem_menu = self.driver.find_element_by_xpath("(.//*[normalize-space(text())"
+                                                      " and normalize-space(.)='Rechtliches'])"
+                                                      "[1]/following::div[4]")
+        self.assertIsNot(elem_menu, self.driver.page_source)
+
+    def suc_log(self):
         self.loginShop(**USERS['successfully'])
         time.sleep(5)
         menu = self.driver.find_element_by_xpath("(.//*[normalize-space(text())"
                                                  " and normalize-space(.)='Rechtliches'])"
                                                  "[1]/following::p[1]")
         menu.click()
+
+    def test_loginShop__logout_(self):
+        self.suc_log()
+        self.driver.find_element_by_xpath("(.//*[normalize-space(text())"
+                                          " and normalize-space(.)='Rechtliches'])"
+                                          "[1]/following::span[1]").click()
         time.sleep(5)
-        # assert 'Ausloggen' in self.driver.page_source
-        # assert 'Mein Konto' in self.driver.page_source
-        k = self.driver.find_element_by_xpath("(.//*[normalize-space(text())"
-                                              " and normalize-space(.)='Rechtliches'])"
-                                              "[1]/following::div[4]")
-        self.assertIsNot(k, self.driver.page_source)
+        assert 'Anmelden' in self.driver.page_source
+
 
 if __name__ == '__main__':
     unittest.main()
