@@ -5,12 +5,10 @@ import unittest
 from python.common.selenium import Selenium, true
 
 USERS = {
-    'successfully': {'email': os.getenv('FB_EMAIL'), 'password': os.getenv('FB_PASSWORD')},
-    'failed': {'email': os.getenv('FB_EMAIL'), 'password': 'XXXXXXXXXXX'},
-    'not_exist': {'email': 'ed42cfb64291e4@gmail.com', 'password': 'XXXXXXXXXXX'},
-    'not_cred': {'email': '', 'password': ''},
+    'emails': {'email': ['anna.kernozhytskaya@codex-soft.com',
+               'AnnA.kerNoZytskAya@coDex-soFt.com', 'ed42cfb64291e4@gmail.com', '']},
+    'passwords': {'password': ['codex123', 'XXXXXXXXXXX', '']},
 }
-
 
 class ContiagoTest(unittest.TestCase):
 
@@ -42,14 +40,26 @@ class ContiagoTest(unittest.TestCase):
                 button.click()
                 break
 
-    def test_loginShop__failed_wrong_credentials(self):
-        self.loginShop(**USERS['failed'])
+    def suc_log(self):
+        self.loginShop(USERS['emails']['email'][0], USERS['passwords']['password'][0])
         time.sleep(5)
-        # self.assertTrue('Das eingegebene Kennwort ist falsch' in self.driver.page_source)
+        menu = self.driver.find_element_by_xpath("(.//*[normalize-space(text())"
+                                                 " and normalize-space(.)='Rechtliches'])"
+                                                 "[1]/following::p[1]")
+        menu.click()
+
+    def test_loginShop__failed_wrong_credentials(self):
+        self.loginShop(USERS['emails']['email'][0], USERS['passwords']['password'][1])
+        time.sleep(5)
         assert 'Das eingegebene Kennwort ist falsch' in self.driver.page_source
 
+    def test_loginShop__not_cred(self):
+        self.loginShop(USERS['emails']['email'][3], USERS['passwords']['password'][2])
+        time.sleep(5)
+        assert 'Wrong request format.' in self.driver.page_source
+
     def test_loginShop__failed_user_not_exist(self):
-        self.loginShop(**USERS['not_exist'])
+        self.loginShop(USERS['emails']['email'][2], USERS['passwords']['password'][1])
         time.sleep(5)
         assert 'Ein Benutzer mit dieser E-Mail ist nicht registriert' in self.driver.page_source
 
@@ -60,19 +70,6 @@ class ContiagoTest(unittest.TestCase):
                                                       " and normalize-space(.)='Rechtliches'])"
                                                       "[1]/following::div[4]")
         self.assertIsNot(elem_menu, self.driver.page_source)
-
-    def suc_log(self):
-        self.loginShop(**USERS['successfully'])
-        time.sleep(5)
-        menu = self.driver.find_element_by_xpath("(.//*[normalize-space(text())"
-                                                 " and normalize-space(.)='Rechtliches'])"
-                                                 "[1]/following::p[1]")
-        menu.click()
-
-    def test_loginShop__not_cred(self):
-        self.loginShop(**USERS['not_cred'])
-        time.sleep(5)
-        assert 'Wrong request format.' in self.driver.page_source
 
     def test_loginShop__logout_(self):
         self.suc_log()
