@@ -26,7 +26,11 @@ class ContiagoTest(unittest.TestCase):
         self.driver.get('http://136.243.36.97:2000')
         self.driver.find_element_by_name("email").send_keys(email)
         self.driver.find_element_by_name("password").send_keys(password)
-        self.driver.find_element_by_xpath("//button[@type='submit'][contains(.,'Login')]").click()
+        button = self.driver.find_element_by_xpath("//button[@type='submit'][contains(.,'Login')]")
+        if button.is_enabled():
+            button.click()
+        else:
+            pass
 
     def test_loginServer__failed_wrong_credentials(self):
         self.loginServer(**USERS['failed'])
@@ -43,10 +47,10 @@ class ContiagoTest(unittest.TestCase):
         time.sleep(5)
         assert 'Überblick über alle Kanäle.' in self.driver.page_source
 
-        # def test_loginServer__not_cred(self):
-    #     self.loginServer(**USERS['not_cred'])
-    #     time.sleep(5)
-    #     assert 'Wrong request format.' in self.driver.page_source
+    def test_loginServer__not_cred(self):
+        self.loginServer(**USERS['not_cred'])
+        time.sleep(5)
+        assert 'Login' in self.driver.page_source
 
     def test_loginServer__logout_(self):
         self.test_loginServer__successfully()
